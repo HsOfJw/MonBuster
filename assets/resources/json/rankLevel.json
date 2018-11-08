@@ -1,0 +1,12 @@
+[
+{"ID":"1","Name":" 入门新手","Cost":"10","magic":"1","awardGold":"10"},
+{"ID":"2","Name":"起步熟手","Cost":"10","magic":"1","awardGold":"10"},
+{"ID":"3","Name":"坚韧黑铁","Cost":"10","magic":"1","awardGold":"10"},
+{"ID":"4","Name":"倔强黄铜 ","Cost":"10","magic":"2","awardGold":"15"},
+{"ID":"5","Name":"顽强白银","Cost":"10","magic":"2","awardGold":"15"},
+{"ID":"6","Name":"傲气黄金","Cost":"10","magic":"2","awardGold":"15"},
+{"ID":"7","Name":"长胜铂金","Cost":"10","magic":"3","awardGold":"20"},
+{"ID":"8","Name":"无懈钻石","Cost":"10","magic":"3","awardGold":"20"},
+{"ID":"9","Name":"帷幄大师","Cost":"10","magic":"3","awardGold":"20"},
+{"ID":"10","Name":"急速王者","Cost":"10","magic":"4","awardGold":"50"}
+]

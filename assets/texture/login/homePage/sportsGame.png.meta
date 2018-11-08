@@ -1,0 +1,30 @@
+{
+  "ver": "2.0.0",
+  "uuid": "c69f747d-40cf-4518-b418-e6939d5ff951",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "sportsGame": {
+      "ver": "1.0.3",
+      "uuid": "be3be40c-bf3f-43f8-bd8a-2ae29cd512a6",
+      "rawTextureUuid": "c69f747d-40cf-4518-b418-e6939d5ff951",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": 1,
+      "trimX": 7,
+      "trimY": 1,
+      "width": 602,
+      "height": 374,
+      "rawWidth": 611,
+      "rawHeight": 378,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

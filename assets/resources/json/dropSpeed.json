@@ -1,0 +1,101 @@
+[
+  {
+    "Rank": "1",
+    "Time": "30",
+    "Speed": "1.3",
+    "Place1": "11",
+    "speedAdd1": "-0.1",
+    "Place2": "21",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "2",
+    "Time": "40",
+    "Speed": "1.3",
+    "Place1": "11",
+    "speedAdd1": "-0.2",
+    "Place2": "15",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "3",
+    "Time": "50",
+    "Speed": "1.2",
+    "Place1": "16",
+    "speedAdd1": "-0.2",
+    "Place2": "31",
+    "speedAdd2": "-0.3"
+  },
+  {
+    "Rank": "4",
+    "Time": "60",
+    "Speed": "1.2",
+    "Place1": "16",
+    "speedAdd1": "-0.3",
+    "Place2": "31",
+    "speedAdd2": "-0.3"
+  },
+  {
+    "Rank": "5",
+    "Time": "70",
+    "Speed": "1.1",
+    "Place1": "18",
+    "speedAdd1": "-0.3",
+    "Place2": "35",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "6",
+    "Time": "80",
+    "Speed": "1",
+    "Place1": "15",
+    "speedAdd1": "-0.2",
+    "Place2": "30",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "7",
+    "Time": "90",
+    "Speed": "1",
+    "Place1": "20",
+    "speedAdd1": "-0.2",
+    "Place2": "40",
+    "speedAdd2": "-0.3"
+  },
+  {
+    "Rank": "8",
+    "Time": "100",
+    "Speed": "0.9",
+    "Place1": "20",
+    "speedAdd1": "-0.2",
+    "Place2": "50",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "9",
+    "Time": "110",
+    "Speed": "0.8",
+    "Place1": "18",
+    "speedAdd1": "-0.2",
+    "Place2": "50",
+    "speedAdd2": "-0.2"
+  },
+  {
+    "Rank": "10",
+    "Time": "120",
+    "Speed": "0.7",
+    "Place1": "15",
+    "speedAdd1": "-0.3",
+    "Place2": "50",
+    "speedAdd2": "-0.1"
+  },
+  {
+    "Rank": "11",
+    "Time": "120",
+    "Speed": "0.9",
+    "Place1": "21",
+    "speedAdd1": "-0.2",
+    "Place2": "41",
+    "speedAdd2": "-0.2"
+  }
+]

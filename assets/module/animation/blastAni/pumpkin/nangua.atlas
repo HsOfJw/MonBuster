@@ -1,0 +1,174 @@
+
+nangua.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 893, 23
+  size: 45, 37
+  orig: 45, 37
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 420, 98
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: -1
+10001
+  rotate: false
+  xy: 829, 70
+  size: 101, 73
+  orig: 176, 132
+  offset: 40, 12
+  index: -1
+10002
+  rotate: false
+  xy: 683, 46
+  size: 144, 102
+  orig: 176, 132
+  offset: 17, 10
+  index: -1
+10003
+  rotate: false
+  xy: 683, 150
+  size: 157, 104
+  orig: 176, 132
+  offset: 12, 12
+  index: -1
+10004
+  rotate: false
+  xy: 2, 5
+  size: 158, 119
+  orig: 176, 132
+  offset: 10, 6
+  index: -1
+10005
+  rotate: false
+  xy: 353, 128
+  size: 166, 126
+  orig: 176, 132
+  offset: 8, 1
+  index: -1
+10006
+  rotate: false
+  xy: 180, 128
+  size: 171, 126
+  orig: 176, 132
+  offset: 5, 2
+  index: -1
+10007
+  rotate: false
+  xy: 2, 126
+  size: 176, 128
+  orig: 176, 132
+  offset: 0, 3
+  index: -1
+10008
+  rotate: false
+  xy: 521, 138
+  size: 160, 116
+  orig: 176, 132
+  offset: 16, 14
+  index: -1
+10009
+  rotate: false
+  xy: 842, 145
+  size: 145, 109
+  orig: 176, 132
+  offset: 20, 20
+  index: -1
+11
+  rotate: false
+  xy: 989, 199
+  size: 33, 55
+  orig: 33, 55
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 269, 78
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 210, 82
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 319, 91
+  size: 50, 35
+  orig: 50, 35
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 829, 28
+  size: 40, 62
+  orig: 40, 62
+  offset: 0, 0
+  index: -1
+2
+  rotate: true
+  xy: 162, 66
+  size: 58, 46
+  orig: 58, 46
+  offset: 0, 0
+  index: -1
+3
+  rotate: true
+  xy: 371, 91
+  size: 35, 47
+  orig: 35, 47
+  offset: 0, 0
+  index: -1
+4
+  rotate: true
+  xy: 162, 46
+  size: 18, 52
+  orig: 18, 52
+  offset: 0, 0
+  index: -1
+5
+  rotate: true
+  xy: 462, 104
+  size: 22, 29
+  orig: 22, 29
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 162, 2
+  size: 59, 42
+  orig: 59, 42
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 932, 16
+  size: 57, 56
+  orig: 57, 56
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 989, 158
+  size: 32, 39
+  orig: 32, 39
+  offset: 0, 0
+  index: -1
+9
+  rotate: true
+  xy: 932, 74
+  size: 69, 47
+  orig: 69, 47
+  offset: 0, 0
+  index: -1

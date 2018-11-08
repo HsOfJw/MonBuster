@@ -32,7 +32,9 @@ cc.Class({
     _hideLogView() {
         let scene = cc.director.getScene();
         let LogView = scene.getChildByName("LogView");
-        LogView.active = false;
+        if (LogView) {
+            LogView.active = false;
+        }
     },
 
     //根据用户星级判断 下一步流程
@@ -121,15 +123,15 @@ cc.Class({
         };
         let sucFun = res => {
             console.log("游戏结束页面 获取的跳转数据为", res);
-            this._showData(res);
+            this._showGameListData(res);
         };
         WxApi.wx_request(url, sendData, sucFun);
 
 
     },
     //遍历展示数据
-    _showData(recData) {
-        if (recData.data.data.state === "10") {
+    _showGameListData(recData) {
+        if (recData.data.data.state ===  GameData.gameConfigInfo.directGame.stating) {
             console.log("游戏列表审核中，不进行遍历展示");
         } else {
             let gameList = recData.data.data.redirect;

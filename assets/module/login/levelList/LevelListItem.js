@@ -40,21 +40,16 @@ cc.Class({
                 this.levelHeadSprite.getComponent(cc.Sprite).spriteFrame = spriteFrame;
             }.bind(this));
 
-            if (window.wx){
-                //设置当前段位人数 进入段位花费的金币
-                let currentLevelData = GameData.gameConfigInfo.levelInfo[data];
-                let currentLevelNum = currentLevelData ? currentLevelData.count : 0;
-                this.currentLevelNum.string = "当前段位" + currentLevelNum + "人";
-            }
+            //设置当前段位人数 进入段位花费的金币
+            let currentLevelData = GameData.gameConfigInfo.levelInfo[data];
+            let currentLevelNum = currentLevelData ? currentLevelData.count : 0;
+            this.currentLevelNum.string = "当前段位" + currentLevelNum + "人";
             this.costGold.string = rankLevelItem.Cost;
-
 
             //判断是否显示遮罩
             let rankLevel = GameData.playInfo.currentLevel;
-            if (window.wx){
-                let acceptAwardInfo = GameData.gameConfigInfo.acceptAwardInfo;
-                let currentAwardData = acceptAwardInfo[parseInt(data) - 1];
-            }
+            let acceptAwardInfo = GameData.gameConfigInfo.acceptAwardInfo;
+            let currentAwardData = acceptAwardInfo[parseInt(data) - 1];
             if (parseInt(data) > rankLevel) { //当前级别大于用户等级
                 this.starContent.removeAllChildren();
                 this.shadeBg.active = true;
@@ -83,7 +78,7 @@ cc.Class({
                     }
                 }
             } else {  //当前级别小于玩家等级
-                /*if (currentAwardData) {
+                if (currentAwardData) {
                     if (currentAwardData.is_draw === 0) {//未领取过
                         //代表未领取
                         this.shadeBg.active = true;
@@ -102,7 +97,7 @@ cc.Class({
                 for (let k = 0; k < 5; k++) {
                     let starItem = cc.instantiate(this.starPre);
                     this.starContent.addChild(starItem);
-                }*/
+                }
             }
         } else {
             console.log('[LevelListItem ] setLevelListItemData 中取出的json数据不正确 ', rankLevelItem);

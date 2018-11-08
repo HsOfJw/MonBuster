@@ -3,6 +3,7 @@ let UIMgr = require("UIMgr");
 let GameLocalStorage = require("GameLocalStorage");
 let Observer = require("Observer");
 let WxApi = require("WxApi");
+require('ald-game');
 cc.Class({
     extends: Observer,
 

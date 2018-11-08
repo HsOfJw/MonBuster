@@ -34,7 +34,6 @@ cc.Class({
         this._loadGradeUp();
         //播放胜利音效
         AudioMgr.playGameOverMusic();
-        this._setGameList();
         this._setBannerInfo();
 
     },
@@ -42,7 +41,9 @@ cc.Class({
     _hideLogView() {
         let scene = cc.director.getScene();
         let LogView = scene.getChildByName("LogView");
-        LogView.active = false;
+        if (LogView) {
+            LogView.active = false;
+        }
     },
     //设置Banner 广告
     _setBannerInfo() {
@@ -50,20 +51,7 @@ cc.Class({
             GameData.gameConfigInfo.bannerAd.show();
         }
     },
-    //加载最新推荐的游戏列表
-    _setGameList() {
-        let url = "https://gather.51weiwan.com/api/app/redirectlist";
-        let sendData = {
-            data: {
-                game_id: GameData.gameConfigInfo.gameId,
-                location: GameData.gameConfigInfo.directGame.gameOverPositionId,
-            },
-        };
-        let sucFun = res => {
-            this._showGameListData(res);
-        };
-        WxApi.wx_request(url, sendData, sucFun);
-    },
+
 
     //向子域发送消息  向服务器发送消息
     _sendData() {
@@ -123,6 +111,20 @@ cc.Class({
         }
         this._initStartContentNode(starNum);
         this._sendData();
+        this._setGameList();
+    },
+    //加载最新推荐的游戏列表
+    _setGameList() {
+        let url = "https://gather.51weiwan.com/api/app/redirectlist";
+        let sendData = {
+            game_id: GameData.gameConfigInfo.gameId,
+            location: GameData.gameConfigInfo.directGame.gameOverPositionId
+        };
+        let sucFun = res => {
+            console.log("游戏胜利页面 获取的跳转数据为", res);
+            this._showGameListData(res);
+        };
+        WxApi.wx_request(url, sendData, sucFun);
     },
     //遍历展示 游戏列表数据
     _showGameListData(recData) {

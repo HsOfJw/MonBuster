@@ -1,4 +1,3 @@
-//let NetSocketMgr = require("NetSocketMgr");
 let Wx_netSocketMgr = require("Wx_netSocketMgr");
 let GameData = require("GameData");
 let Util = require("Util");
@@ -122,7 +121,7 @@ cc.Class({
             let title = shareInfo['6'].info.share_title;
             let imageUrl = shareInfo['6'].info.share_img;
 
-            if (window.wx != undefined) {
+            if (window.wx !== undefined) {
                 window.wx.shareAppMessage({
                     title: title,
                     imageUrl: imageUrl,
@@ -135,7 +134,6 @@ cc.Class({
                             nickname: GameData.playInfo.nickName,
                             avatar_url: GameData.playInfo.avatarUrl,
                         };
-                        //Wx_socketMgr.sendMsg(1, sendData);
                         Wx_netSocketMgr.sendMsg(1, sendData);
                         console.log("邀请好友 分享成功 返回信息为", res);
                     }

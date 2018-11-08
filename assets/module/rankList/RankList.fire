@@ -1461,7 +1461,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 145,
+      "width": 144,
       "height": 40
     },
     "_rotationX": 0,
@@ -2547,9 +2547,6 @@
     },
     "levelSign": {
       "__id__": 44
-    },
-    "headFrame": {
-      "__id__": 54
     },
     "headSprite": {
       "__id__": 50

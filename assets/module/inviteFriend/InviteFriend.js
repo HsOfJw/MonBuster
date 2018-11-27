@@ -210,7 +210,7 @@ cc.Class({
         }
         let self = this;
         //开始授权操作
-        if (window.wx != undefined) {
+        if (window.wx !== undefined) {
             //设置按钮信息
             let button = wx.createUserInfoButton({
                 type: 'image',

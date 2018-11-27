@@ -659,7 +659,5 @@ cc.Class({
                 this.contiuneCreteIndex = 0;
             }
         }
-
-
     },
 });

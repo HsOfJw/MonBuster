@@ -21,7 +21,8 @@ module.exports = {
         }
     },
     // 播放音效
-    playEffectMusic(url, isLoop) {
+    playEffectMusic(url,   isLoop ) {
+		console.log("111111");
         //查看是否打开音效开关
         if (GameData.gameSoundEffect_on_off === "on") {
             if (typeof (isLoop) === "undefined") {

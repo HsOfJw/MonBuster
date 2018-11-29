@@ -45,7 +45,7 @@ module.exports = {
             path: "",
             hz_app_id: "",
             hz_path: "",
-            game_id:"",
+            game_id: "",
         },
         share: null,//分享参数信息
         levelInfo: null,//不同段位的人数
@@ -129,11 +129,12 @@ module.exports = {
 
     //获取游戏配置信息
     getGameConfig() {
+        console.log("准备获取游戏配置信息");
         let url = 'https://gather.51weiwan.com/api/app/getConfig';
         let sendData = {
             type: 1,
             user_id: this.playInfo.uid,
-            game_id: this.gameConfigInfo.gameId,
+            game_id: GameStatusInfo.gameId ? GameStatusInfo.gameId : this.gameConfigInfo.gameId,
         };
         let sucFun = res => {
             console.log("游戏配置数据", res);

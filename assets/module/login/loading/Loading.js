@@ -81,9 +81,11 @@ cc.Class({
         let uid = GameLocalStorage.getUid();
         console.log("[Loading] 本地内存中的uid", uid);
         if (uid) {
+            console.log("本地内存中存在uid");
             GameData.playInfo.uid = uid;
             GameData.getGameConfig();
         } else {
+            console.log("本地内存中不存在uid");
             this._directScene();
         }
     },

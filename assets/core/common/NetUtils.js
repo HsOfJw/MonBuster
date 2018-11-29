@@ -9,17 +9,30 @@ let Global = require("Global");
 function post(url, data, callBack) {
   BKTools.log("请求地址:" + url);
   BKTools.log("请求参数:" + data);
+    let stringBuf="";
+    for( let k in data ){
+        if(stringBuf==""){
+            stringBuf+=k+"=";
+            stringBuf+=data[k];
+        }else{
+            stringBuf+="&"+k+"=";
+            stringBuf+=data[k];
+        }
+    }
   let xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     let status = xhr.status;
     if (xhr.readyState == 4 && status == 200) {
       let responseBody = xhr.responseText;
       BKTools.log("响应的结果：" + responseBody);
-      callBack(status, JSON.parse(responseBody));
+      //封装返回数据
+        let emptyObj={};
+        emptyObj.data=JSON.parse(responseBody);
+      callBack(status, emptyObj);
     }
   };
   xhr.open("POST", url, true);
-  xhr.send(data);
+  xhr.send(stringBuf);
 }
 
 /**

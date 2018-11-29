@@ -1,4 +1,6 @@
 let Util = require("Util");
+let BKTools = require("BKTools");
+let Utils = require("Utils");
 cc.Class({
     extends: cc.Component,
 
@@ -24,13 +26,17 @@ cc.Class({
         } else {
             this.levelId.node.color = new cc.Color(144, 144, 144);
         }
-
-        // 远程 url 带图片后缀名
-        let remoteUrl = data.avatar_url;
-        Util.loadRemoteSprite(remoteUrl, this.headSprite.node);
-        this.nickname.string = data.nickname ? (data.nickname).slice(0, 5) : "";
-        this.userLevel.string = data.name + "x" + data.value + "星";
+        if(cc.sys.platform==cc.sys.QQ_PLAY){
+            Utils.loadImgByUrl(this.headSprite.node,data.url);
+            this.nickname.string = data.nick ? (data.nick).slice(0, 5) : "";
+            this.userLevel.string = data.score + "x 星";
+        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT){
+            // 远程 url 带图片后缀名
+            let remoteUrl = data.url;
+            Util.loadRemoteSprite(remoteUrl, this.headSprite.node);
+             this.nickname.string = data.nickname ? (data.nickname).slice(0, 5) : "";
+             this.userLevel.string = data.name + "x" + data.value + "星";
+        }
     }
-
     // update (dt) {},
 });

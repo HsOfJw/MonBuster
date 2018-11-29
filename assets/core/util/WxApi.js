@@ -1,5 +1,6 @@
 let GameData = require("GameData");
 let GameLocalStorage = require("GameLocalStorage");
+let NetUtils=require('NetUtils');
 module.exports = {
     //创建授权按钮
     createUserInfoButtonAndBindTap() {
@@ -56,6 +57,11 @@ module.exports = {
                 data: data,
                 success: successFun,
             })
+        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+            url.replace("gather", "s");
+            //发送原生请求
+            NetUtils.post(url,data,successFun);
+
         }
     },
     //显示页面右上角 菜单的转发按钮  并监听点击触发的事件

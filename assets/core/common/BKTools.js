@@ -101,9 +101,33 @@ function follow() {
     log("Global.PUIN>" + Global.PUIN);
     BK.QQ.enterPubAccountCard(Global.PUIN);
 }
-
+function getHead(pointNode) {
+    let absolutePath = "GameSandBox://_head/" + GameStatusInfo.openId + ".jpg";
+    let isExit = BK.FileUtil.isFileExist(absolutePath);
+    cc.log(absolutePath + " is exit :" + isExit);
+    //如果指定目录中存在此图像就直接显示否则从网络获取
+    if (isExit) {
+        cc.loader.load(absolutePath, function (err, texture) {
+            if (err == null) {
+                pointNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            }
+        });
+    } else {
+        BK.MQQ.Account.getHeadEx(GameStatusInfo.openId, function (oId, imgPath) {
+            cc.log("openId:" + oId + " imgPath:" + imgPath);
+            var image = new Image();
+            image.onload = function () {
+                var tex = new cc.Texture2D();
+                tex.initWithElement(image);
+                tex.handleLoadedTexture();
+                pointNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(tex);
+            }
+            image.src = imgPath;
+        });
+    }
+}
 function getNick(callback) {
-    BK.MQQ.Account.getNick(Global.openId, callback);
+    BK.MQQ.Account.getNick(GameStatusInfo.openId, callback);
 }
 
 /**
@@ -118,25 +142,30 @@ function uploadScore(level, callback) {
         }
         return;
     }
-
+    console.log("<----11111111111---->");
     var data = {
         userData: [{
             openId: GameStatusInfo.openId,
-            startMs: Global.startGameTime,
+            startMs: (((new Date()).getTime())-Math.ceil(Math.random()*15*6000)).toString(),
             endMs: ((new Date()).getTime()).toString(),
             scoreInfo: {
                 score: level,
             },
-        }, ],
+        }],
         attr: {
             score: {
                 type: 'rank',
-                order: 1,
+                order: 1,//1:  从大到小  2：从小到大 3：累积  4：直接覆盖
             }
         },
     };
     BK.QQ.uploadScoreWithoutRoom(1, data, function (errCode, cmd, data) {
-        log("uploadScoreWithoutRoom callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
+        // 返回错误码信息
+        if (errCode !== 0) {
+            log('---------->排行榜上传分数失败!错误码：' + errCode);
+            return
+        }
+        log("-------------->>>>>>> callback  cmd" + cmd + " errCode:" + errCode + "  data:" + JSON.stringify(data));
         if (callback) {
             callback(errCode, data);
         }
@@ -159,21 +188,24 @@ function getRankList(callback) {
     BK.QQ.getRankListWithoutRoom(attr, order, rankType, function (errCode, cmd, data) {
         log("getRankListWithoutRoom callback  cmd" + cmd + " errCode:" + errCode);
         if (errCode != 0) {
-            callback(errCode);
+            console.log("接收到好友数据，-----------》报错",errCode);
+
+            //callback(errCode);
             return;
         }
         if (data) {
+            console.log("接收到好友数据，并且即将要打印数据");
             let rankList = data.data.ranking_list;
             log("data not null " + rankList.length);
             log(JSON.stringify(data));
-            // rankList.forEach(element => {
-            //   log("....华丽的分割线....");
-            //   log("score:" + element.score);
-            //   log("nick:" + element.nick);
-            //   log("....华丽的分割线....");
-            // });
+             /*rankList.forEach(element => {
+              log("....华丽的分割线....");
+               log("score:" + element.score);
+              log("nick:" + element.nick);
+              log("....华丽的分割线....");
+             });*/
             if (callback) {
-                callback(errCode, rankList);
+                 callback(errCode, rankList);
             }
         }
     });
@@ -265,6 +297,7 @@ module.exports = {
     share: share,
     shareLink: shareLink,
     screenShotShare: screenShotShare,
+    getHead:getHead,
     getNick: getNick,
     follow: follow, //关注公众号
     uploadScore: uploadScore,

@@ -1,5 +1,6 @@
 let GameData = require("GameData");
 let WxApi = require("WxApi");
+let BKTools = require("BKTools");
 cc.Class({
     extends: cc.Component,
 
@@ -19,11 +20,43 @@ cc.Class({
 
     },
     onLoad() {
-        this._sendQuestToGetLadderData();
+        //this._sendQuestToGetLadderData();
         this.onBtnClickLadderRankList();
         this.updateFrameRate = 0;
         this._setBannerInfo();
+        this._testQQPlayRank();
+        this.levelSign.string="111";
     },
+    //测试qq玩一玩好友排行榜数据
+    _testQQPlayRank(){
+        let that=this;
+        let callBack=function(errcode,res){
+            console.log('好友排行榜返回数据',errcode);
+            that._showLadderData_rank(res);
+        }
+        BKTools.getRankList(callBack);
+    },
+
+    //遍历展示数据
+    _showLadderData_rank(arrayData) {
+        this.levelSign.string=arrayData.length;
+        this.userLevel.string=arrayData;
+        console.log("开始遍历好友数据");
+        this.ladderContent.removeAllChildren();
+        for (let k = 0; k < arrayData.length; k++) {
+            let item = cc.instantiate(this.rankListItem);
+            let script = item.getComponent('RankListItem');
+            if (script) {
+                script.setRankListItemData(k + 1, arrayData[k]);
+            }
+            this.ladderContent.addChild(item);
+        }
+        //展示自己的数据
+        //this._initMyselfInfo(data.user_info);
+    },
+
+
+
     //设置Banner 广告
     _setBannerInfo() {
         if (GameData.gameConfigInfo.bannerAd) {

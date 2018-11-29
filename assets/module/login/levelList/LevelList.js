@@ -16,7 +16,7 @@ cc.Class({
             let LevelListItem = cc.instantiate(this.LevelListItem);
             let script = LevelListItem.getComponent("LevelListItem");
             if (script) {
-                script.setLevelListItemData(k);
+                //script.setLevelListItemData(k);
             }
             this.contentNode.addChild(LevelListItem);
         }

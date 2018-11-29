@@ -6,7 +6,7 @@ let Wx_netSocketMgr = require("Wx_netSocketMgr");
 let Observer = require("Observer");
 let GameReady = require("GameReady");
 let WxApi = require("WxApi");
-
+let NetUtils=require("NetUtils");
 cc.Class({
     extends: Observer,
     properties: {
@@ -17,7 +17,7 @@ cc.Class({
     onLoad() {
         GameLocalStorage.initLocalStorage();
         this._initMsg();
-        GameReady.getLaunchParam();
+        //GameReady.getLaunchParam();
         cc.director.preloadScene("HomePage");
         cc.director.preloadScene("RankList");
 
@@ -25,9 +25,38 @@ cc.Class({
         if (cc.sys.isBrowser) {
             this.bg.active = true;
             this._enterGame();
+        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+            console.log("进入到qq玩一玩里面");
+            this._enterGame();
+            this._defaultQQPlayLogin();
         }
     },
 
+    //默认登陆
+    _defaultQQPlayLogin(){
+        if (cc.sys.platform==cc.sys.QQ_PLAY) {
+            let url='http://s.51weiwan.com/api/login/index';
+            let sendData = {
+                    openId:GameStatusInfo.openId,
+                    sex:GameStatusInfo.sex,
+                    game_id: GameStatusInfo.gameId,
+            };
+            let callBack=(statusCode,res)  =>{
+                if(res.data.errno==0){
+                    GameData.playInfo.gold=res.data.data.gold;
+                    GameData.playInfo.uid=res.data.data.uid;
+
+                }else{
+                    console.log("怪兽消消乐登陆返回结果错误，错误码为",statusCode);
+                }
+
+            };
+            //发送请求
+            NetUtils.post(url,sendData,callBack);
+        }
+
+
+    },
     _getMsgList() {
         return [
             GameMsgGlobal.gameReady_loading.direct,

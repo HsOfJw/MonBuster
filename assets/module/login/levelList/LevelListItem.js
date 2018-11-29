@@ -5,6 +5,7 @@ let ObserverMgr = require("ObserverMgr");
 let AudioPlayer = require("AudioPlayer");
 let AudioMgr = require("AudioMgr");
 let WxApi = require("WxApi");
+let BKTools = require("BKTools");
 cc.Class({
     extends: cc.Component,
 
@@ -105,6 +106,16 @@ cc.Class({
     },
     //进入到游戏中
     onBtnClickGo() {
+
+        if(cc.sys.platform==cc.sys.QQ_PLAY){
+            //上报数据
+            BKTools.uploa
+            dScore(parseInt(this.id.string),function (code,res) {
+                console.log("上报成功，接收到数据");
+            });
+        }
+
+
         if (cc.sys.isBrowser) {
             ObserverMgr.dispatchMsg(GameMsgGlobal.gameLoginScene.startMatching, null);
         }

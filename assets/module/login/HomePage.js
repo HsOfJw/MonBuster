@@ -3,6 +3,7 @@ let UIMgr = require("UIMgr");
 let GameLocalStorage = require("GameLocalStorage");
 let Observer = require("Observer");
 let WxApi = require("WxApi");
+let BKTools = require("BKTools");
 require('ald-game');
 cc.Class({
     extends: Observer,
@@ -25,13 +26,6 @@ cc.Class({
 
         matching: {displayName: "匹配界面", default: null, type: cc.Prefab},
         levelAward: {displayName: "段位礼包", default: null, type: cc.Prefab},
-
-
-        //以下暂时无用
-        /* withdraw: {displayName: "提现页面", default: null, type: cc.Prefab},
-         gameTips: {displayName: "游戏段位说明", default: null, type: cc.Prefab},
-         gameMoney: {displayName: "游戏奖金", default: null, type: cc.Label},
-         leftPanel: {displayName: "侧拉板", default: null, type: cc.Prefab},*/
     },
 
     onLoad() {
@@ -54,6 +48,8 @@ cc.Class({
             this._authorAuthentication();
         }
         if (cc.sys.isBrowser) {
+            this._initPage();
+        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
             this._initPage();
         }
     },
@@ -179,14 +175,20 @@ cc.Class({
         let defaultTitle = "万圣节大逃亡，只有我一人活着出来！";
         if (window.wx) {
             WxApi.wx_showShareMenu(GameData.gameConfigInfo.share[5], defaultTitle);
+            let remoteUrl = GameData.playInfo.avatarUrl;
+            WxApi.wx_createImage(remoteUrl, this.playerHead.node);
+            this.playerName.string = GameData.playInfo.nickName;
+
+        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+            BKTools.getHead(this.playerHead.node);
+            let that=this;
+            BKTools.getNick(function (openId, nick) {
+                GameData.playInfo.nickName=nick;
+                that.playerName.string = nick;
+            });
         }
-        let remoteUrl = GameData.playInfo.avatarUrl;
-        WxApi.wx_createImage(remoteUrl, this.playerHead.node);
-        this.playerName.string = GameData.playInfo.nickName;
         this.playerGold.string = GameData.playInfo.gold ? GameData.playInfo.gold : 0;
         //this.gameMoney.string = GameData.playInfo.gameMoney ? GameData.playInfo.gameMoney : 0;
-
-
     },
     //加载跳转游戏的item
     _loadGameList() {
@@ -200,32 +202,6 @@ cc.Class({
             this.directGameContent.addChild(directGameItem);
         }
     },
-    /*
-     //点击侧拉板
-    onBtnClickLeftPanel() {
-        this.addNode.removeAllChildren();
-        UIMgr.createPrefab(this.leftPanel, function (root, ui) {
-            this.addNode.addChild(root);
-        }.bind(this));
-    },
-
-    //游戏段位 瓜分奖金说明
-     onBtnClickGameTips() {
-         this.addNode.removeAllChildren();
-         UIMgr.createPrefab(this.gameTips, function (root, ui) {
-             this.addNode.addChild(root);
-         }.bind(this));
-     },
-      //点击提现
-    onBtnClickWithdraw() {
-        this.addNode.removeAllChildren();
-        UIMgr.createPrefab(this.withdraw, function (root, ui) {
-            this.addNode.addChild(root);
-        }.bind(this));
-    },
-
-     */
-
     //好友对战
     onBtnClickFriendPk() {
         if (GameData.gameConfigInfo.bannerAd) {

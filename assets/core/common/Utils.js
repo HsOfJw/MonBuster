@@ -1,7 +1,7 @@
 /**
- * @author Javen 
- * @copyright 2018-11-13 18:36:04 javendev@126.com 
- * @description 常用的工具方法 
+ * @author Javen
+ * @copyright 2018-11-13 18:36:04 javendev@126.com
+ * @description 常用的工具方法
  */
 
 function setImg(imgNode, spriteFrame) {
@@ -39,9 +39,10 @@ function isArray(value) {
         return Object.prototype.toString.call(value) === "[Object Array]";
     }
 }
+
 /**
  * 将秒转化为 "00:02:30"
- * @param {*} value 
+ * @param {*} value
  */
 function formatSeconds(value) {
     let secondTime = parseInt(value); // 秒
@@ -74,7 +75,7 @@ function formatSeconds(value) {
 
 /**
  * 将秒转化为 "2.30"
- * @param {*} value 
+ * @param {*} value
  */
 function formatMilliSecond(value) {
     if (value > 3600) {
@@ -92,6 +93,7 @@ function formatMilliSecond(value) {
     }
     return secondTime + ":" + milliSecondTime;
 }
+
 module.exports = {
     loadImgByUrl: loadImgByUrl,
     loadLocal: loadLocal,

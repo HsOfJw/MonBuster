@@ -41,7 +41,7 @@ cc.Class({
             this._initMsg();
             this.onBtnClickStartGame();
         } else {
-            console.log("");
+            console.log("第一次进入到主页中");
             this._initMsg();
             this._setDayAward();
             this._loadGameList();
@@ -58,7 +58,8 @@ cc.Class({
             GameMsgGlobal.gameLoginScene.addGold_watchVideo,
             GameMsgGlobal.gameReady_loading.enterLoginScene,
             GameMsgGlobal.gameLoginScene.startMatching,
-            GameMsgGlobal.gameLoginScene.refreshLevelList
+            GameMsgGlobal.gameLoginScene.refreshLevelList,
+            GameMsgGlobal.gameLoginScene.showLevelAward
         ];
     },
     _onMsg(msg, data) {
@@ -73,6 +74,11 @@ cc.Class({
             this.playerGold.string = GameData.playInfo.gold ? GameData.playInfo.gold : 0;
             this.levelList.active = false;
             this.levelList.active = true;
+        }else if(msg===GameMsgGlobal.gameLoginScene.showLevelAward){
+            //显示段位礼包
+            UIMgr.createPrefab(this.levelAward, function (root, ui) {
+                this.addNode.addChild(root);
+            }.bind(this));
         }
     },
     //进入到匹配页面
@@ -89,12 +95,17 @@ cc.Class({
     _authorAuthentication() {
         let uid = GameLocalStorage.getUid();
         if (uid) {
+            console.log("本地内存中存在uid");
             GameData.getLevelAwardAndPerLevelNum();
             //初始化页面数据
             this._initPage();
         } else {
             //开始授权操作
+            console.log("本地内存中不存在uid");
             WxApi.createUserInfoButtonAndBindTap();
+        }
+        if(cc.sys.platform==cc.sys.QQ_PLAY){
+            GameData.getLevelAwardAndPerLevelNum();
         }
     },
     //每日登陆奖励
@@ -110,8 +121,9 @@ cc.Class({
             let sendData = {
                 user_id: GameData.playInfo.uid,
             };
-            let sucFun = res => {
-                if (res.data.errno === 0) {//返回结果正确
+            let sucFun = (statusCode,res)  => {
+                console.log("获取每日登陆奖励");
+                if (res.data.errno == 0) {//返回结果正确
                     GameData.playInfo.gold = res.data.data.gold;
                 }
             };
@@ -124,7 +136,7 @@ cc.Class({
         let sendData = {
             user_id: GameData.playInfo.uid,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res)  => {
             GameData.playInfo.gold = res.data.data.gold;
             this.playerGold.string = GameData.playInfo.gold;
         };
@@ -177,16 +189,12 @@ cc.Class({
             WxApi.wx_showShareMenu(GameData.gameConfigInfo.share[5], defaultTitle);
             let remoteUrl = GameData.playInfo.avatarUrl;
             WxApi.wx_createImage(remoteUrl, this.playerHead.node);
-            this.playerName.string = GameData.playInfo.nickName;
+
 
         }else if(cc.sys.platform==cc.sys.QQ_PLAY){
             BKTools.getHead(this.playerHead.node);
-            let that=this;
-            BKTools.getNick(function (openId, nick) {
-                GameData.playInfo.nickName=nick;
-                that.playerName.string = nick;
-            });
         }
+        this.playerName.string = GameData.playInfo.nickName;
         this.playerGold.string = GameData.playInfo.gold ? GameData.playInfo.gold : 0;
         //this.gameMoney.string = GameData.playInfo.gameMoney ? GameData.playInfo.gameMoney : 0;
     },

@@ -65,7 +65,7 @@ module.exports = {
         let sendData = {
             gid: GameData.gameConfigInfo.gid,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             console.log("服务器获取获取落地页跳转信息", res.data.data);
             if (res.data.errno === 0) {
                 GameData.gameConfigInfo.loadingSpriteDirectGame.bgSpriteUrl = res.data.data.img;

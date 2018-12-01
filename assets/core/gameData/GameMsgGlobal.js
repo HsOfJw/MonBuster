@@ -8,7 +8,7 @@ window.GameMsgGlobal = {
     gameLoginScene: {
         startMatching: "GameMsg_gameLoginScene_startMatching",//开始匹配
         addGold_watchVideo: "GameMsg_gameLoginScene_addGold_watchVideo",//看视频添加金币
-        refreshLevelList: "GameMsg_gameLoginScene_refreshLevelList",//领取段位奖励
+        refreshLevelList: "GameMsg_gameLoginScene_refreshLevelList",//已经领取段位奖励 刷新页面
         showLevelAward: "GameMsg_gameLoginScene_showLevelAward",//展示段位礼包
     },
     sceneDirect: {

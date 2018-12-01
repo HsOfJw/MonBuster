@@ -81,7 +81,7 @@ cc.Class({
             level: GameData.playInfo.currentLevel,
             is_win: 1,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             GameData.playInfo.gold = res.data.data.gold;
         };
         WxApi.wx_request(url, sendData, sucFun);
@@ -120,7 +120,7 @@ cc.Class({
             game_id: GameData.gameConfigInfo.gameId,
             location: GameData.gameConfigInfo.directGame.gameOverPositionId
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             console.log("游戏胜利页面 获取的跳转数据为", res);
             this._showGameListData(res);
         };
@@ -195,6 +195,11 @@ cc.Class({
     },
     //再来一局
     onBtnClickRmRematch() {
+        console.log("游戏胜利，申请重新来一局");
+        if (cc.sys.isBrowser || cc.sys.platform==cc.sys.QQ_PLAY) {
+            GameMsgGlobal.sceneDirect.HomePageDirect = "matching";
+            cc.director.loadScene("HomePage");
+        }
         let rankLevelItem = JsonFileMgr.getRankLevelItem(GameData.playInfo.currentLevel);
         if (rankLevelItem) {
             let costGold = rankLevelItem.Cost;
@@ -203,7 +208,7 @@ cc.Class({
                 gold: costGold,
                 user_id: GameData.playInfo.uid
             };
-            let sucFun = res => {
+            let sucFun = (statusCode,res) => {
                 if (res.data.errno === 0) {//返回结果正确
                     GameMsgGlobal.sceneDirect.HomePageDirect = "matching";
                     cc.director.loadScene("HomePage");

@@ -29,10 +29,12 @@ cc.Class({
     },
     //点击领取  单倍
     onBtnClickSure() {
+        console.log("领取单倍奖励");
         this.sentQuestToGetAward(0);
     },
     //观看视频领取双倍奖励
     onBtnClickDoubleGetAward() {
+        console.log("观看视频领取双倍奖励");
         //关闭背景音乐
         AudioPlayer.stopCurrentBackGroundMusic();
         let onErrorFun = res => {
@@ -62,7 +64,7 @@ cc.Class({
             level_id: GameData.playInfo.acceptAwardLevel,
             is_double: isDoubleNUm
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             if (res.data.errno === 0) {//返回结果正确
                 GameData.gameConfigInfo.acceptAwardInfo = res.data.data.level;
                 //给自己加金币
@@ -74,7 +76,7 @@ cc.Class({
                 console.log("[dialog ]服务器获取 领取段位奖励错误", res.data.errMsg);
             }
         };
-        WxApi.wx_request();
+        WxApi.wx_request(url,sendData,sucFun());
 
 
     }

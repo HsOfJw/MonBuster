@@ -28,7 +28,7 @@ module.exports = {
                                 iv: res.iv,
                                 encryptedData: res.encryptedData,
                             };
-                            let successFun = (res_login) => {
+                            let successFun = (statusCode,res_login)=> {
                                 button.destroy();
                                 require("GameData").playInfo.uid = res_login.data.data.uid;
                                 //存贮uid  进入到内存中

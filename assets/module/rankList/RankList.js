@@ -20,11 +20,11 @@ cc.Class({
 
     },
     onLoad() {
-        //this._sendQuestToGetLadderData();
+        this._sendQuestToGetLadderData();
         this.onBtnClickLadderRankList();
         this.updateFrameRate = 0;
         this._setBannerInfo();
-        this._testQQPlayRank();
+        //this._testQQPlayRank();
         this.levelSign.string="111";
     },
     //测试qq玩一玩好友排行榜数据
@@ -70,21 +70,30 @@ cc.Class({
 
     //世界排名
     onBtnClickLadderRankList() {
-        this._isShow = true;//关闭子域
-        this.display.node.active = false;
-        this.ladderScrollView.node.active = true;
-        this.userInfo.active = true;
+        if(cc.sys.platform==cc.sys.QQ_PLAY){
+            this._sendQuestToGetLadderData();
+        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+            this._isShow = true;//关闭子域
+            this.display.node.active = false;
+            this.ladderScrollView.node.active = true;
+            this.userInfo.active = true;
+        }
+
     },
     //好友排行榜
     onBtnClickFriendRankList() {
-        this._isShow = false;//开启子域
-        this.ladderScrollView.node.active = false;
-        this.userInfo.active = false;
-        this.display.node.active = true;
-        // 发消息给子域
-        WxApi.wx_postMessage({
-            message: "FriendRankList",
-        });
+        if(cc.sys.platform==cc.sys.QQ_PLAY){
+            this._testQQPlayRank();
+        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+            this._isShow = false;//开启子域
+            this.ladderScrollView.node.active = false;
+            this.userInfo.active = false;
+            this.display.node.active = true;
+            // 发消息给子域
+            WxApi.wx_postMessage({
+                message: "FriendRankList",
+            });
+        }
     },
     //返回
     onBtnClickToBack() {
@@ -99,7 +108,7 @@ cc.Class({
             user_id: GameData.playInfo.uid,
             game_id: 30,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             if (res.data.errno === 0) {//返回结果正确
                 this._showLadderData(res.data.data);
             }
@@ -133,8 +142,13 @@ cc.Class({
 
     //查看群排行
     onBtnClickGroupOfRanking() {
-        let defaultTitle = "那一刻，我和南瓜精的距离只有0.001公分...";
-        WxApi.wx_shareAppMessage(GameData.gameConfigInfo.share[3],)
+        if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+            let defaultTitle = "那一刻，我和南瓜精的距离只有0.001公分...";
+            WxApi.wx_shareAppMessage(GameData.gameConfigInfo.share[3],defaultTitle);
+        }else if (cc.sys.platform==cc.sys.QQ_PLAY){
+            BKTools.shareToArk();
+        }
+
     },
     _updateSubDomainCanvas() {
         //获取开放数据域

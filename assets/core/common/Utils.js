@@ -20,7 +20,7 @@ function loadImgByUrl(imgNode, remoteUrl, imageType) {
             return;
         }
         setImg(imgNode, new cc.SpriteFrame(texture));
-    });
+    })
 }
 
 function loadLocal(absolutePath, imgNode) {

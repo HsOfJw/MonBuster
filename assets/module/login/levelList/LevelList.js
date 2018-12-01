@@ -4,8 +4,6 @@ cc.Class({
     properties: {
         contentNode: {displayName: "内容节点", default: null, type: cc.Node},
         LevelListItem: {displayName: "子预制体", default: null, type: cc.Prefab},
-        dialog: {displayName: "段位礼包", default: null, type: cc.Prefab},
-        addGold: {displayName: "获取金币预制", default: null, type: cc.Prefab},
     },
     onLoad() {
         this._initPage();
@@ -16,7 +14,7 @@ cc.Class({
             let LevelListItem = cc.instantiate(this.LevelListItem);
             let script = LevelListItem.getComponent("LevelListItem");
             if (script) {
-                //script.setLevelListItemData(k);
+                script.setLevelListItemData(k);
             }
             this.contentNode.addChild(LevelListItem);
         }

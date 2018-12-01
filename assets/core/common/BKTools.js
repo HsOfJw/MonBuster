@@ -142,7 +142,6 @@ function uploadScore(level, callback) {
         }
         return;
     }
-    console.log("<----11111111111---->");
     var data = {
         userData: [{
             openId: GameStatusInfo.openId,

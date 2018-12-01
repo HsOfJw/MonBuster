@@ -136,7 +136,7 @@ module.exports = {
             user_id: this.playInfo.uid,
             game_id: GameStatusInfo.gameId ? GameStatusInfo.gameId : this.gameConfigInfo.gameId,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             console.log("游戏配置数据", res);
             if (res.data.errno === 0) {//返回结果正确
 
@@ -166,7 +166,7 @@ module.exports = {
         let sendData_drawLog = {
             user_id: this.playInfo.uid,
         };
-        let sucFun_drawLog = res => {
+        let sucFun_drawLog = (statusCode,res) => {
             console.log("游戏段位奖励数据", res);
             if (res.data.errno === 0) {//返回结果正确
                 this.gameConfigInfo.acceptAwardInfo = res.data.data.level;
@@ -180,7 +180,7 @@ module.exports = {
             type: 1,
             game_id: this.gameConfigInfo.gameId,
         };
-        let sucFun = res => {
+        let sucFun = (statusCode,res) => {
             console.log("游戏段位段位人数", res);
             if (res.data.errno === 0) {//返回结果正确
 

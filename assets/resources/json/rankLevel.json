@@ -1,6 +1,6 @@
 [
 {"ID":"1","Name":" 入门新手","Cost":"10","magic":"1","awardGold":"10"},
-{"ID":"2","Name":"起步熟手","Cost":"10","magic":"1","awardGold":"10"},
+{"ID":"2","Name":"起步熟手","Cost":"12","magic":"1","awardGold":"10"},
 {"ID":"3","Name":"坚韧黑铁","Cost":"10","magic":"1","awardGold":"10"},
 {"ID":"4","Name":"倔强黄铜 ","Cost":"10","magic":"2","awardGold":"15"},
 {"ID":"5","Name":"顽强白银","Cost":"10","magic":"2","awardGold":"15"},

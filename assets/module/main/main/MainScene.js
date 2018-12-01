@@ -4,7 +4,7 @@ let JsonFileMgr = require("JsonFileMgr");
 let Observer = require("Observer");
 let WxApi = require("WxApi");
 let UIMgr = require("UIMgr");
-
+let BKTools=require("BKTools");
 cc.Class({
     extends: Observer,
     properties: {
@@ -52,10 +52,27 @@ cc.Class({
             this._opponent_gameOver();
         } else if (msg === GameMsgGlobal.mainScene.victoryLayer) {
             this._loadVictoryLayer();
+            //上传数据
+            if(cc.sys.platform==cc.sys.QQ_PLAY){
+                let totalStar=GameData.playInfo.currentLevel*5+GameData.playInfo.currentStarNum+1;
+                BKTools.uploadScore(parseInt(totalStar),function (statusCode,res) {
+                    console.log("游戏成功，上传数据");
+                })
+            }
         } else if (msg === GameMsgGlobal.mainScene.failLayer) {
             this._loadFailLayer();
+
+            //上传数据
+            if(cc.sys.platform==cc.sys.QQ_PLAY){
+                let totalStar=GameData.playInfo.currentLevel*5+GameData.playInfo.currentStarNum-1;
+                BKTools.uploadScore(parseInt(totalStar),function (statusCode,res) {
+                    console.log("游戏失败，上传数据");
+                })
+            }
+
         }
     },
+
     //加载胜利页面
     _loadVictoryLayer() {
         this.addNode.removeAllChildren();

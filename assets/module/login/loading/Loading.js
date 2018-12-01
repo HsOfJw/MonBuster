@@ -7,6 +7,7 @@ let Observer = require("Observer");
 let GameReady = require("GameReady");
 let WxApi = require("WxApi");
 let NetUtils=require("NetUtils");
+let BKTools=require('BKTools');
 cc.Class({
     extends: Observer,
     properties: {
@@ -27,14 +28,20 @@ cc.Class({
             this._enterGame();
         }else if(cc.sys.platform==cc.sys.QQ_PLAY){
             console.log("进入到qq玩一玩里面");
-            this._enterGame();
+
             this._defaultQQPlayLogin();
+            this._directScene();
         }
     },
 
     //默认登陆
     _defaultQQPlayLogin(){
+
         if (cc.sys.platform==cc.sys.QQ_PLAY) {
+            BKTools.getNick(function (openId, nick) {
+                GameData.playInfo.nickName=nick;
+            });
+
             let url='http://s.51weiwan.com/api/login/index';
             let sendData = {
                     openId:GameStatusInfo.openId,
@@ -45,7 +52,6 @@ cc.Class({
                 if(res.data.errno==0){
                     GameData.playInfo.gold=res.data.data.gold;
                     GameData.playInfo.uid=res.data.data.uid;
-
                 }else{
                     console.log("怪兽消消乐登陆返回结果错误，错误码为",statusCode);
                 }
@@ -109,7 +115,7 @@ cc.Class({
                 this._loadHomePageScene("HomePage", function () {
                     cc.director.loadScene("HomePage");
                 });
-            }.bind(this), 1.2);
+            }.bind(this), 1.5);
         }
     },
     _loadHomePageScene(sceneName, onLoaded) {

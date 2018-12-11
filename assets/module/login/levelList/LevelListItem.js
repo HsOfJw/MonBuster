@@ -54,6 +54,7 @@ cc.Class({
             if (parseInt(data) > rankLevel) { //当前级别大于用户等级
                 this.starContent.removeAllChildren();
                 this.shadeBg.active = true;
+                this.treasure.active = false;
             } else if (parseInt(data) === rankLevel) { //当前级别等于用户等级
                 this.shadeBg.active = false;
                 //加载星星底图
@@ -83,7 +84,6 @@ cc.Class({
                     if (currentAwardData.is_draw === 0) {//未领取过
                         //代表未领取
                         this.shadeBg.active = true;
-                        this.treasure.active = false;//目前只为了适配qq玩一玩
                     } else {
                         //代表已经领取  此段位不能点击
                         this.shadeBg.active = true;
@@ -109,13 +109,13 @@ cc.Class({
     onBtnClickGo() {
 
         //暂时关闭上报数据
-        if (cc.sys.platform == cc.sys.QQ_PLAY) {
+        if (cc.sys.platform === cc.sys.QQ_PLAY) {
             //上报数据
             BKTools.uploadScore(parseInt(this.id.string), function (code, res) {
                 console.log("上报成功，接收到数据");
             });
         }
-        if (cc.sys.isBrowser || cc.sys.platform == cc.sys.QQ_PLAY) {
+        if (cc.sys.isBrowser || cc.sys.platform === cc.sys.QQ_PLAY) {
             ObserverMgr.dispatchMsg(GameMsgGlobal.gameLoginScene.startMatching, null);
         }
         let id = this.id.string;

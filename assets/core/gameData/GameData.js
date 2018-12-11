@@ -183,7 +183,6 @@ module.exports = {
         let sucFun = res => {
             console.log("游戏段位段位人数", res);
             if (res.data.errno === 0) {//返回结果正确
-
                 this.gameConfigInfo.levelInfo = res.data.data;
             }
         };

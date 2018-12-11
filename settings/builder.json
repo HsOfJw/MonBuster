@@ -27,7 +27,6 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
   "startScene": "f7844206-8728-449b-bb0b-c5bda4583166",
   "title": "MonBuster",
   "webOrientation": "auto",
@@ -39,5 +38,6 @@
     "subContext": "wx_openData_MonBuster_rankList"
   },
   "xxteaKey": "0cc45592-2a52-4b",
-  "zipCompressJs": true
+  "zipCompressJs": true,
+  "renderMode": "0"
 }

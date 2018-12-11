@@ -64,7 +64,7 @@ cc.Class({
             level_id: GameData.playInfo.acceptAwardLevel,
             is_double: isDoubleNUm
         };
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             if (res.data.errno === 0) {//返回结果正确
                 GameData.gameConfigInfo.acceptAwardInfo = res.data.data.level;
                 //给自己加金币
@@ -76,8 +76,6 @@ cc.Class({
                 console.log("[dialog ]服务器获取 领取段位奖励错误", res.data.errMsg);
             }
         };
-        WxApi.wx_request(url,sendData,sucFun());
-
-
+        WxApi.wx_request(url, sendData, sucFun());
     }
 });

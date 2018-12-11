@@ -41,15 +41,15 @@ cc.Class({
             this._initMsg();
             this.onBtnClickStartGame();
         } else {
-            console.log("第一次进入到主页中");
             this._initMsg();
-            this._setDayAward();
             this._loadGameList();
             this._authorAuthentication();
         }
+
+
         if (cc.sys.isBrowser) {
             this._initPage();
-        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+        } else if (cc.sys.platform === cc.sys.QQ_PLAY) {
             this._initPage();
         }
     },
@@ -74,7 +74,7 @@ cc.Class({
             this.playerGold.string = GameData.playInfo.gold ? GameData.playInfo.gold : 0;
             this.levelList.active = false;
             this.levelList.active = true;
-        }else if(msg===GameMsgGlobal.gameLoginScene.showLevelAward){
+        } else if (msg === GameMsgGlobal.gameLoginScene.showLevelAward) {
             //显示段位礼包
             UIMgr.createPrefab(this.levelAward, function (root, ui) {
                 this.addNode.addChild(root);
@@ -90,7 +90,6 @@ cc.Class({
         }.bind(this));
     },
 
-
     //授权认证
     _authorAuthentication() {
         let uid = GameLocalStorage.getUid();
@@ -104,43 +103,9 @@ cc.Class({
             console.log("本地内存中不存在uid");
             WxApi.createUserInfoButtonAndBindTap();
         }
-        if(cc.sys.platform==cc.sys.QQ_PLAY){
+        if (cc.sys.platform === cc.sys.QQ_PLAY) {
             GameData.getLevelAwardAndPerLevelNum();
         }
-    },
-    //每日登陆奖励
-    _setDayAward() {
-        let currentDate = new Date().toLocaleDateString();
-        let loginTime = GameLocalStorage.getLoginTime();
-        if (!loginTime || loginTime !== currentDate) {
-            //重置  说明是新的一天
-            GameLocalStorage.setLoginTime(currentDate);
-
-            //发送请求
-            let url = "https://gather.51weiwan.com/xxl/game/goldAdd";
-            let sendData = {
-                user_id: GameData.playInfo.uid,
-            };
-            let sucFun = (statusCode,res)  => {
-                console.log("获取每日登陆奖励");
-                if (res.data.errno == 0) {//返回结果正确
-                    GameData.playInfo.gold = res.data.data.gold;
-                }
-            };
-            WxApi.wx_request(url, sendData, sucFun);
-        }
-    },
-    //获取用户金币
-    _addGold_watchVideo() {
-        let url = "https://gather.51weiwan.com/api/user/gold";
-        let sendData = {
-            user_id: GameData.playInfo.uid,
-        };
-        let sucFun = (statusCode,res)  => {
-            GameData.playInfo.gold = res.data.data.gold;
-            this.playerGold.string = GameData.playInfo.gold;
-        };
-        WxApi.wx_request(url, sendData, sucFun);
     },
     //开始游戏
     onBtnClickStartGame() {
@@ -191,12 +156,11 @@ cc.Class({
             WxApi.wx_createImage(remoteUrl, this.playerHead.node);
 
 
-        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+        } else if (cc.sys.platform == cc.sys.QQ_PLAY) {
             BKTools.getHead(this.playerHead.node);
         }
         this.playerName.string = GameData.playInfo.nickName;
         this.playerGold.string = GameData.playInfo.gold ? GameData.playInfo.gold : 0;
-        //this.gameMoney.string = GameData.playInfo.gameMoney ? GameData.playInfo.gameMoney : 0;
     },
     //加载跳转游戏的item
     _loadGameList() {

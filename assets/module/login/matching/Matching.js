@@ -49,7 +49,7 @@ cc.Class({
     _sendQuest() {
         let url = "https://gather.51weiwan.com/xxl/robot/rand";
         let sendData = null;
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             if (res.data.errno === 0) {//返回结果正确
                 GameData.gameConfigInfo.opponentInfo.nickName = res.data.data[0].nickname;
                 GameData.gameConfigInfo.opponentInfo.avatarUrl = res.data.data[0].avatar_url;

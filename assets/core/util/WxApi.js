@@ -1,6 +1,6 @@
 let GameData = require("GameData");
 let GameLocalStorage = require("GameLocalStorage");
-let NetUtils=require('NetUtils');
+let NetUtils = require('NetUtils');
 module.exports = {
     //创建授权按钮
     createUserInfoButtonAndBindTap() {
@@ -16,6 +16,7 @@ module.exports = {
                     height: 1500,
                 }
             });
+            console.log("创建授权按钮，按钮数据为", button);
             button.onTap(res => {
                 if (res.errMsg === "getUserInfo:ok") {
                     //数据交互
@@ -28,7 +29,8 @@ module.exports = {
                                 iv: res.iv,
                                 encryptedData: res.encryptedData,
                             };
-                            let successFun = (statusCode,res_login)=> {
+                            let successFun = res_login => {
+                                console.log("用户点击授权,服务器返回数据为", res_login);
                                 button.destroy();
                                 require("GameData").playInfo.uid = res_login.data.data.uid;
                                 //存贮uid  进入到内存中
@@ -56,11 +58,11 @@ module.exports = {
                 url: url,
                 data: data,
                 success: successFun,
-            })
-        }else if(cc.sys.platform==cc.sys.QQ_PLAY){
+            });
+        } else if (cc.sys.platform === cc.sys.QQ_PLAY) {
             url.replace("gather", "s");
             //发送原生请求
-            NetUtils.post(url,data,successFun);
+            NetUtils.post(url, data, successFun);
 
         }
     },

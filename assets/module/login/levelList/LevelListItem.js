@@ -42,7 +42,7 @@ cc.Class({
             }.bind(this));
 
             //设置当前段位人数 进入段位花费的金币
-           let currentLevelData = GameData.gameConfigInfo.levelInfo[data];
+            let currentLevelData = GameData.gameConfigInfo.levelInfo[data];
             let currentLevelNum = currentLevelData ? currentLevelData.count : 0;
             this.currentLevelNum.string = "当前段位" + currentLevelNum + "人";
             this.costGold.string = rankLevelItem.Cost;
@@ -109,13 +109,13 @@ cc.Class({
     onBtnClickGo() {
 
         //暂时关闭上报数据
-        if(cc.sys.platform==cc.sys.QQ_PLAY){
+        if (cc.sys.platform == cc.sys.QQ_PLAY) {
             //上报数据
-            BKTools.uploadScore(parseInt(this.id.string),function (code,res) {
+            BKTools.uploadScore(parseInt(this.id.string), function (code, res) {
                 console.log("上报成功，接收到数据");
             });
         }
-        if (cc.sys.isBrowser  || cc.sys.platform==cc.sys.QQ_PLAY) {
+        if (cc.sys.isBrowser || cc.sys.platform == cc.sys.QQ_PLAY) {
             ObserverMgr.dispatchMsg(GameMsgGlobal.gameLoginScene.startMatching, null);
         }
         let id = this.id.string;
@@ -128,7 +128,7 @@ cc.Class({
                 gold: costGold,
                 user_id: GameData.playInfo.uid
             };
-            let sucFun = (statusCode,res) => {
+            let sucFun = res => {
                 if (res.data.errno === 0) {
                     //进入到匹配页面
                     ObserverMgr.dispatchMsg(GameMsgGlobal.gameLoginScene.startMatching, null);

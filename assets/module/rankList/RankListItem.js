@@ -6,7 +6,6 @@ cc.Class({
 
     properties: {
         levelId: {displayName: "名次", default: null, type: cc.Label},
-        headFrame: {displayName: "头像frame", default: null, type: cc.Sprite},
         headSprite: {displayName: "头像", default: null, type: cc.Sprite},
         nickname: {displayName: "昵称", default: null, type: cc.Label},
         userLevel: {displayName: "玩家当前等级", default: null, type: cc.Label},
@@ -17,7 +16,6 @@ cc.Class({
     },
 
     setRankListItemData(ranking, data) {
-        //console.log('为排行榜 子节点赋值 数据为', data);
         this.levelId.string = "NO." + ranking;
         if (ranking == 1) {
             this.levelId.node.color = new cc.Color(255, 121, 0);
@@ -26,16 +24,17 @@ cc.Class({
         } else {
             this.levelId.node.color = new cc.Color(144, 144, 144);
         }
-        if(cc.sys.platform==cc.sys.QQ_PLAY){
-            Utils.loadImgByUrl(this.headSprite.node,data.url);
+
+        if (cc.sys.platform === cc.sys.QQ_PLAY) {
+            Utils.loadImgByUrl(this.headSprite.node, data.url);
             this.nickname.string = data.nick ? (data.nick).slice(0, 5) : "";
             this.userLevel.string = data.score + "x 星";
-        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT){
+        } else if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             // 远程 url 带图片后缀名
-            let remoteUrl = data.url;
+            let remoteUrl = data.avatar_url;
             Util.loadRemoteSprite(remoteUrl, this.headSprite.node);
-             this.nickname.string = data.nickname ? (data.nickname).slice(0, 5) : "";
-             this.userLevel.string = data.name + "x" + data.value + "星";
+            this.nickname.string = data.nickname ? (data.nickname).slice(0, 5) : "";
+            this.userLevel.string = data.name + "x" + data.value + "星";
         }
     }
     // update (dt) {},

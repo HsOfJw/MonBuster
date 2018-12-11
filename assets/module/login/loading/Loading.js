@@ -18,7 +18,7 @@ cc.Class({
     onLoad() {
         GameLocalStorage.initLocalStorage();
         this._initMsg();
-        //GameReady.getLaunchParam();
+        GameReady.getLaunchParam();
         cc.director.preloadScene("HomePage");
         cc.director.preloadScene("RankList");
 
@@ -28,7 +28,6 @@ cc.Class({
             this._enterGame();
         } else if (cc.sys.platform == cc.sys.QQ_PLAY) {
             console.log("进入到qq玩一玩里面");
-
             this._defaultQQPlayLogin();
             this._directScene();
         }
@@ -36,7 +35,6 @@ cc.Class({
 
     //默认登陆
     _defaultQQPlayLogin() {
-
         if (cc.sys.platform == cc.sys.QQ_PLAY) {
             BKTools.getNick(function (openId, nick) {
                 GameData.playInfo.nickName = nick;
@@ -77,7 +75,6 @@ cc.Class({
             this.bg.active = true;
             this._enterGame();
         } else if (msg === GameMsgGlobal.gameReady_loading.enterLoginScene) {
-            console.log("loading  ->");
             this._directScene();
         }
     },
@@ -89,6 +86,7 @@ cc.Class({
         if (uid) {
             console.log("本地内存中存在uid");
             GameData.playInfo.uid = uid;
+            this._setDayAward();
             GameData.getGameConfig();
         } else {
             console.log("本地内存中不存在uid");
@@ -116,6 +114,29 @@ cc.Class({
                     cc.director.loadScene("HomePage");
                 });
             }.bind(this), 1.5);
+        }
+    },
+
+    //每日登陆奖励
+    _setDayAward() {
+        let currentDate = new Date().toLocaleDateString();
+        let loginTime = GameLocalStorage.getLoginTime();
+        if (!loginTime || loginTime !== currentDate) {
+            //重置  说明是新的一天
+            GameLocalStorage.setLoginTime(currentDate);
+
+            //发送请求
+            let url = "https://gather.51weiwan.com/xxl/game/goldAdd";
+            let sendData = {
+                user_id: GameData.playInfo.uid,
+            };
+            let sucFun =  res => {
+                console.log("获取每日登陆奖励");
+                if (res.data.errno === 0) {//返回结果正确
+                    GameData.playInfo.gold = res.data.data.gold;
+                }
+            };
+            WxApi.wx_request(url, sendData, sucFun);
         }
     },
     _loadHomePageScene(sceneName, onLoaded) {

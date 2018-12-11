@@ -150,7 +150,7 @@ module.exports = {
         xhr.send();
     },
     loadRemoteSprite(remoteUrl, pointNode,) {
-        if (window.wx != undefined) {
+        if (window.wx !== undefined) {
             let image = wx.createImage();
             //image.onload = () => {
             image.onload = function () {

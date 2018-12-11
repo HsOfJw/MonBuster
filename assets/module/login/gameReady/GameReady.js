@@ -65,7 +65,7 @@ module.exports = {
         let sendData = {
             gid: GameData.gameConfigInfo.gid,
         };
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             console.log("服务器获取获取落地页跳转信息", res.data.data);
             if (res.data.errno === 0) {
                 GameData.gameConfigInfo.loadingSpriteDirectGame.bgSpriteUrl = res.data.data.img;
@@ -88,9 +88,7 @@ module.exports = {
     //设置背景图片点击的监听  跳转
     _loadingSpriteClick() {
         let status = GameData.gameConfigInfo.loadingSpriteDirectGame.state;
-
         let ToMiniProgram = {
-
             envVersion: 'release',//release  正式版  trial 体验版
             success: function () {
                 let bgNode = cc.find("Canvas").getChildByName("loadingBg");

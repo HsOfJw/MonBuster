@@ -25,13 +25,12 @@ cc.Class({
         this.updateFrameRate = 0;
         this._setBannerInfo();
         //this._testQQPlayRank();
-        this.levelSign.string="111";
     },
     //测试qq玩一玩好友排行榜数据
-    _testQQPlayRank(){
-        let that=this;
-        let callBack=function(errcode,res){
-            console.log('好友排行榜返回数据',errcode);
+    _testQQPlayRank() {
+        let that = this;
+        let callBack = function (errcode, res) {
+            console.log('好友排行榜返回数据', errcode);
             that._showLadderData_rank(res);
         }
         BKTools.getRankList(callBack);
@@ -39,9 +38,9 @@ cc.Class({
 
     //遍历展示数据
     _showLadderData_rank(arrayData) {
-        this.levelSign.string=arrayData.length;
-        this.userLevel.string=arrayData;
-        console.log("开始遍历好友数据");
+        this.levelSign.string = arrayData.length;
+        this.userLevel.string = arrayData;
+        console.log("开始遍历好友数据",);
         this.ladderContent.removeAllChildren();
         for (let k = 0; k < arrayData.length; k++) {
             let item = cc.instantiate(this.rankListItem);
@@ -52,9 +51,8 @@ cc.Class({
             this.ladderContent.addChild(item);
         }
         //展示自己的数据
-        //this._initMyselfInfo(data.user_info);
+        this._initMyselfInfo(data.user_info);
     },
-
 
 
     //设置Banner 广告
@@ -70,9 +68,9 @@ cc.Class({
 
     //世界排名
     onBtnClickLadderRankList() {
-        if(cc.sys.platform==cc.sys.QQ_PLAY){
+        if (cc.sys.platform === cc.sys.QQ_PLAY) {
             this._sendQuestToGetLadderData();
-        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+        } else if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this._isShow = true;//关闭子域
             this.display.node.active = false;
             this.ladderScrollView.node.active = true;
@@ -82,9 +80,9 @@ cc.Class({
     },
     //好友排行榜
     onBtnClickFriendRankList() {
-        if(cc.sys.platform==cc.sys.QQ_PLAY){
+        if (cc.sys.platform === cc.sys.QQ_PLAY) {
             this._testQQPlayRank();
-        }else if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+        } else if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this._isShow = false;//开启子域
             this.ladderScrollView.node.active = false;
             this.userInfo.active = false;
@@ -108,7 +106,7 @@ cc.Class({
             user_id: GameData.playInfo.uid,
             game_id: 30,
         };
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             if (res.data.errno === 0) {//返回结果正确
                 this._showLadderData(res.data.data);
             }
@@ -142,10 +140,10 @@ cc.Class({
 
     //查看群排行
     onBtnClickGroupOfRanking() {
-        if(cc.sys.platform==cc.sys.BROWSER_TYPE_WECHAT_GAME){
+        if (cc.sys.platform === cc.syscc.sys.WECHAT_GAME) {
             let defaultTitle = "那一刻，我和南瓜精的距离只有0.001公分...";
-            WxApi.wx_shareAppMessage(GameData.gameConfigInfo.share[3],defaultTitle);
-        }else if (cc.sys.platform==cc.sys.QQ_PLAY){
+            WxApi.wx_shareAppMessage(GameData.gameConfigInfo.share[3], defaultTitle);
+        } else if (cc.sys.platform === cc.sys.QQ_PLAY) {
             BKTools.shareToArk();
         }
 

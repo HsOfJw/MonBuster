@@ -121,7 +121,7 @@ cc.Class({
             game_id: GameData.gameConfigInfo.gameId,
             location: GameData.gameConfigInfo.directGame.gameOverPositionId
         };
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             console.log("游戏结束页面 获取的跳转数据为", res);
             this._showGameListData(res);
         };
@@ -131,7 +131,7 @@ cc.Class({
     },
     //遍历展示数据
     _showGameListData(recData) {
-        if (recData.data.data.state ===  GameData.gameConfigInfo.directGame.stating) {
+        if (recData.data.data.state === GameData.gameConfigInfo.directGame.stating) {
             console.log("游戏列表审核中，不进行遍历展示");
         } else {
             let gameList = recData.data.data.redirect;
@@ -208,7 +208,7 @@ cc.Class({
             level: GameData.playInfo.currentLevel,
             is_win: 0
         };
-        let sucFun = (statusCode,res) => {
+        let sucFun = res => {
             if (res.data.errno === 0) {//返回结果正确
                 GameData.playInfo.gold = res.data.data.gold;
             }
@@ -226,7 +226,7 @@ cc.Class({
     //再来一局
     onBtnClickEnterGame() {
         console.log("游戏失败，申请重新来一局");
-        if (cc.sys.isBrowser || cc.sys.platform==cc.sys.QQ_PLAY) {
+        if (cc.sys.isBrowser || cc.sys.platform == cc.sys.QQ_PLAY) {
             GameMsgGlobal.sceneDirect.HomePageDirect = "matching";
             cc.director.loadScene("HomePage");
         }
@@ -238,7 +238,7 @@ cc.Class({
                 gold: costGold,
                 user_id: GameData.playInfo.uid
             };
-            let sucFun = (statusCode,res) => {
+            let sucFun = res => {
                 if (res.data.errno === 0) {//返回结果正确
                     if (GameData.gameConfigInfo.bannerAd) {
                         GameData.gameConfigInfo.bannerAd.hide();

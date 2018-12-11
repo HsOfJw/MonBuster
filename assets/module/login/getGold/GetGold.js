@@ -38,7 +38,7 @@ cc.Class({
                 let sendData = {
                     user_id: GameData.playInfo.uid,
                 };
-                let sucFun = (statusCode,res) => {
+                let sucFun = res => {
                     if (res.data.errno === 0) {//返回结果正确
                         GameData.playInfo.gold = res.data.data.gold;
                         ObserverMgr.dispatchMsg(GameMsgGlobal.gameLoginScene.addGold_watchVideo, null);
